@@ -1,0 +1,1333 @@
+/* --- Biến CSS & Cấu hình Root --- */
+:root {
+    --primary-color: #ec0000;
+    --text-color: #ffffff;
+    --header-height: 100px;
+    --header-height-scrolled: 90px;
+    --container-width: 1640px;
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #192542; /* Màu nền của Hero section */
+    color: var(--text-color);
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+.container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* --- Định dạng Header --- */
+#header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--header-height);
+    z-index: 1000;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Đường kẻ mờ full chiều ngang */
+}
+
+/* Trạng thái khi cuộn trang */
+#header.scrolled {
+    height: var(--header-height-scrolled);
+    background-color: transparent; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Đảm bảo đường kẻ luôn có khi scroll */
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
+}
+
+#header .container {
+    max-width: 100% !important; /* Ép buộc mở rộng toàn màn hình */
+    width: 100%;
+    padding: 0 20px; /* Khoảng cách nhỏ để không chạm sát sạt mép */
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0 20px;
+    transition: var(--transition);
+}
+
+/* --- Định dạng Logo --- */
+.logo {
+    flex: 1; /* Tự động dãn để đẩy menu vào giữa */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.logo img {
+    max-height: 90px;
+    width: auto;
+    transition: var(--transition);
+}
+
+#header.scrolled .logo img {
+    max-height: 70px;
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5)); /* Thêm bóng nhẹ cho Logo để nổi trên nền kính */
+}
+
+/* Luôn hiện logo trắng, không dùng logo đen nháy nữa */
+.logo-dark {
+    display: none !important;
+}
+
+#header.scrolled .logo-white {
+    display: block !important;
+}
+
+/* --- Menu điều hướng --- */
+.main-nav {
+    flex: 0 0 auto; /* Không dãn, giữ kích thước thực của menu */
+    display: flex;
+    justify-content: center;
+}
+
+.main-nav ul {
+    display: flex;
+    gap: 50px;
+    transition: var(--transition);
+}
+/* Đã xóa viền cũ của main-nav ul */
+
+.main-nav ul li a {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #ffffff;
+    transition: var(--transition);
+    position: relative;
+    padding: 10px 0;
+}
+
+#header.scrolled .main-nav ul li a {
+    color: #ffffff; /* Giữ màu trắng để nhìn xuyên thấu đẹp hơn */
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.main-nav ul li a:hover,
+.main-nav ul li a.active {
+    color: var(--primary-color);
+}
+
+/* Hotline & Các thành phần bên phải */
+.header-right {
+    flex: 1; /* Tự động dãn để cân bằng với bên logo, giúp menu nằm giữa tuyệt đối */
+    display: flex;
+    justify-content: flex-end; /* Đẩy hotline sát mép phải */
+    align-items: center;
+}
+
+.hotline {
+    display: flex;
+    align-items: center;
+}
+
+.hotline img {
+    height: 45px; /* Tăng nhẹ kích thước hotline cho giống mẫu */
+    width: auto;
+}
+
+/* --- Định dạng Hero Slider --- */
+.hero-slider {
+    position: relative;
+    width: 100%;
+    height: 950px;
+    overflow: hidden;
+    background-color: #000;
+}
+
+.hero-slider::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 250px;
+    z-index: 9;
+    pointer-events: none;
+    background: linear-gradient(0deg, rgba(25,37,66,.86) 0%, rgba(23,42,77,.78) 35%, rgba(0,94,188,0) 100%);
+}
+
+.hero-slider::before {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 300px;
+    height: 100%;
+    z-index: 9;
+    pointer-events: none;
+    background: linear-gradient(270deg, rgba(255,255,255,.28) 0%, rgba(0,94,188,0) 100%);
+}
+
+.slider-container {
+    height: 100%;
+    display: flex;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.slide {
+    flex: 0 0 100%;
+    height: 100%;
+    position: relative;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* --- Hệ thống điều hướng Slider chuẩn DigiSky (Gốc) --- */
+.slider-controls {
+    position: absolute;
+    bottom: 120px; /* Đẩy lên cao hơn một chút theo mẫu */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 100;
+}
+
+.slider-dots {
+    display: flex;
+    gap: 15px;
+    counter-reset: dot;
+}
+
+.dot {
+    counter-increment: dot;
+    position: relative;
+    width: 42px; /* Tăng 10% (từ 37px) */
+    height: 42px;
+    background: #192542;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+/* Viền Gradient Gold sử dụng Mask */
+.dot:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 3px; /* Tăng độ dày viền thêm 10% */
+    border-radius: 50%;
+    background: linear-gradient(90deg, #B99645 20%, #C6A450 32%, #ECD272 40%, #F6E996 50%, #E5BE55 59%, #E1AF3C 68%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+}
+
+/* Số bên trong dot với Gradient Gold */
+.dot:before {
+    content: counter(dot);
+    font-family: "SF Pro Display", "Roboto", sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    background: linear-gradient(90deg, #B99645 20%, #C6A450 32%, #ECD272 40%, #F6E996 50%, #E5BE55 59%, #E1AF3C 68%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all 0.25s ease;
+}
+
+/* Trạng thái Active - Sáng rực rỡ */
+.dot.active {
+    background: #FFF1B8;
+    box-shadow: 0 0 20px 10px rgba(255, 241, 184, .6), 0 0 40px 20px rgba(255, 241, 184, .3);
+}
+
+.dot.active:before {
+    -webkit-text-fill-color: #000; /* Số chuyển sang màu đen khi nền sáng */
+    transform: scale(1.1);
+}
+
+/* Nút Mũi tên Alt */
+.slider-btn-alt {
+    position: relative;
+    width: 42px; /* Tăng 10% */
+    height: 42px;
+    background: #192542;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slider-btn-alt:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 3px; /* Tăng độ dày viền */
+    border-radius: 50%;
+    background: linear-gradient(90deg, #B99645 20%, #C6A450 32%, #ECD272 40%, #F6E996 50%, #E5BE55 59%, #E1AF3C 68%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+}
+
+.slider-btn-alt svg {
+    width: 16px;
+    height: 16px;
+    fill: #C6A450;
+    z-index: 1;
+}
+
+.slider-btn-alt:hover {
+    background: #FFF1B8;
+}
+
+.slider-btn-alt:hover svg {
+    fill: #000;
+}
+
+/* --- Hiệu ứng xuất hiện theo hướng (Directional Reveal) --- */
+.reveal {
+    opacity: 0;
+    transition: all 1.2s ease-out;
+}
+
+.reveal-left { transform: translateX(-50px); }
+.reveal-right { transform: translateX(50px); }
+.reveal-top { transform: translateY(-50px); }
+
+.reveal.active {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+/* --- Section 3: Giới thiệu (Intro Section) --- */
+.digisky-intro-section {
+    position: relative;
+    padding: 100px 0;
+    overflow: hidden;
+    color: #fff;
+    background: #0a1628;
+}
+
+.digisky-intro-section .section-bg {
+    position: absolute;
+    inset: 0;
+    opacity: 0.3;
+}
+
+.digisky-intro-section .section-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.digisky-intro-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    position: relative;
+    z-index: 2;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Cột trái: Nội dung chữ */
+.digisky-intro-section .col-left {
+    flex: 1;
+    max-width: 450px;
+}
+
+.digisky-section-title h2 {
+    font-family: "Inter", sans-serif;
+    font-size: 60px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    background: linear-gradient(90deg, #DED2AF 0%, #DBBA82 50%, #CEB899 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1.1;
+}
+
+.digisky-intro-desc p {
+    font-size: 18px;
+    font-weight: 600;
+    color: #DBBA82;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+.digisky-intro-content p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    opacity: 0.9;
+}
+
+/* Cột giữa: Bản đồ */
+.digisky-intro-section .col-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.digisky-map-image img {
+    max-width: 100%;
+    height: auto;
+    filter: drop-shadow(0 0 30px rgba(212, 165, 116, 0.2));
+}
+
+/* Cột phải: Thống kê */
+.digisky-intro-section .col-right {
+    flex: 1;
+    max-width: 350px;
+}
+
+.digisky-stats-container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.stat-item h3 {
+    font-family: "Inter", sans-serif;
+    font-size: 80px;
+    font-weight: 700;
+    margin: 0;
+    background: linear-gradient(90deg, #DED2AF 0%, #DBBA82 50%, #CEB899 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+}
+
+.stat-item p {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-top: 10px;
+    opacity: 0.8;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .digisky-section-title h2 { font-size: 50px; }
+    .stat-item h3 { font-size: 60px; }
+    .digisky-intro-row { padding: 0 20px; }
+}
+
+@media (max-width: 992px) {
+    .digisky-intro-row {
+        flex-direction: column;
+        text-align: center;
+    }
+    .digisky-intro-section .col-left,
+    .digisky-intro-section .col-right {
+        max-width: 100%;
+    }
+}
+
+/* --- Section 4: Sản phẩm & Dịch vụ (Products Section) --- */
+.digisky-products-section {
+    padding: 100px 0;
+    background: linear-gradient(180deg, #0a1628 0%, #0d1a2d 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.digisky-products-title {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.digisky-products-title h2 {
+    font-family: "Inter", sans-serif;
+    font-size: 60px;
+    font-weight: 700;
+    background: linear-gradient(90deg, #DED2AF 0%, #DBBA82 50%, #CEB899 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 2px;
+}
+
+.digisky-products-stack {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.digisky-product-card {
+    flex: 1;
+    min-width: 200px;
+    max-width: 294px;
+    perspective: 1000px;
+    position: relative;
+    margin: 0 5px; /* Giảm khoảng cách để 5 thẻ khít nhau hơn */
+}
+
+/* Tia sáng Flare rực rỡ ở cả Đỉnh và Đáy thẻ */
+.digisky-product-card::before,
+.digisky-product-card::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 130px; /* To hơn một chút để rực rỡ hơn */
+    height: 40px;
+    background-image: url("https://digisky.vn/wp-content/themes/flatsome-child/img/anhsang.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 25; /* Nằm trên cả khung ảnh */
+    pointer-events: none;
+    filter: drop-shadow(0 0 15px rgba(255, 180, 0, 0.8));
+}
+
+.digisky-product-card::before {
+    top: -18px;
+}
+
+.digisky-product-card::after {
+    bottom: -18px;
+    transform: translateX(-50%) rotate(180deg);
+}
+
+.digisky-product-card .col-inner {
+    position: relative;
+    border-radius: 30px;
+    overflow: hidden;
+    background: #192542;
+    border: 4px solid #f8c969; /* Tăng thêm 10% độ dày */
+    box-shadow: 0 0 35px rgba(248, 201, 105, 0.6), inset 0 0 70px rgba(0, 0, 0, 0.8); /* Tăng thêm 10% độ tỏa sáng */
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    height: 100%;
+}
+
+/* Khung ảnh trang trí sử dụng file cục bộ */
+.digisky-product-card .col-inner::before {
+    content: "";
+    position: absolute;
+    inset: 0 -10px;
+    background-image: url("./Trang chủ - CÔNG TY TNHH BẦU TRỜI SỐ DIGISKY_files/khunganh.png");
+    background-size: 108% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.digisky-product-card .img-inner {
+    position: relative;
+    width: 100%;
+    padding-top: 216%; /* Kéo dài thêm 20% (từ 180%) */
+    overflow: hidden;
+}
+
+.digisky-product-card .img-inner img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+    filter: brightness(0.8);
+}
+
+.digisky-product-card .box-text {
+    position: absolute;
+    top: 35px; /* Vị trí chuẩn theo ảnh mẫu */
+    left: 0;
+    right: 0;
+    padding: 0 20px;
+    z-index: 15;
+    pointer-events: none;
+    text-align: center;
+}
+
+.digisky-product-card .box-text h3 {
+    font-family: "Inter", sans-serif;
+    font-size: 16px; /* Font chữ nhỏ hơn chút để vừa thẻ */
+    font-weight: 700;
+    line-height: 1.3;
+    color: #DED2AF;
+    margin: 0;
+}
+
+/* Hover Effects */
+.digisky-product-card:hover .col-inner {
+    transform: none; /* Thẻ đứng im */
+    box-shadow: 0 10px 40px rgba(248, 201, 105, 0.5), inset 0 0 50px rgba(0, 0, 0, 0.2);
+    animation: none; /* Bỏ dập dềnh */
+}
+
+.digisky-product-card:hover img {
+    transform: scale(1.15); /* Zoom ảnh mạnh hơn một chút */
+    filter: brightness(1);
+}
+
+@keyframes cardFloat {
+    0%, 100% { transform: translateY(-15px); }
+    50% { transform: translateY(-25px); }
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .digisky-product-card {
+        flex: 0 0 calc(33.33% - 25px);
+    }
+}
+
+@media (max-width: 992px) {
+    .digisky-product-card {
+        flex: 0 0 calc(50% - 25px);
+    }
+}
+
+@media (max-width: 576px) {
+    .digisky-product-card {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+/* --- Section 5: Bất Động Sản (Match Screenshot) --- */
+.digisky-realestate-section {
+    position: relative;
+    padding: 120px 0;
+    background-image: url("image/batdongsan.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Tạo hiệu ứng parallax nhẹ */
+    overflow: hidden;
+    min-height: 800px;
+    display: flex;
+    align-items: center;
+}
+
+.realestate-content-left {
+    position: relative;
+    z-index: 5; /* Đảm bảo chữ nổi lên trên ảnh khi đè lên */
+    padding-left: 10%;
+    max-width: 800px;
+}
+
+.realestate-main-title {
+    font-family: "Inter", sans-serif;
+    font-size: 80px; /* Cực lớn như mẫu */
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 30px; /* Reset khoảng cách tiêu đề vì chữ nằm chung cột ảnh */
+    background: linear-gradient(90deg, #ffffff 0%, #DED2AF 50%, #DBBA82 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -2px;
+}
+
+.realestate-main-desc {
+    font-size: 18px;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.9);
+    text-align: justify;
+    max-width: 600px;
+    margin-bottom: 30px; /* Giảm khoảng cách để ảnh xích lại gần chữ hơn */
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8); /* Tạo bóng để chữ luôn rõ nét khi đè lên nền ảnh sáng */
+}
+
+/* Định nghĩa Row & Col Flexbox */
+.realestate-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end; /* Căn lề dưới cùng để 2 ảnh luôn nằm song song thẳng hàng ở đáy */
+    width: 100%;
+}
+
+.realestate-col-left {
+    display: block;
+}
+
+.realestate-col-right {
+    display: block;
+}
+
+.realestate-visual-box {
+    position: relative;
+    width: 100%;
+    border-radius: 0; /* Xóa bo góc */
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+
+.first-box {
+    width: 100%;
+}
+
+.second-box {
+    width: 100%;
+}
+
+.visual-img {
+    width: 100%;
+    height: auto;
+}
+
+.visual-img img {
+    width: 100%;
+    height: auto;
+    object-fit: contain; /* Hiển thị đầy đủ hình ảnh, không bị cắt */
+    display: block;
+}
+
+.visual-text {
+    position: absolute;
+    bottom: 25px;
+    left: 25px;
+    right: 25px; /* Tránh tràn chữ */
+    pointer-events: none;
+}
+
+.visual-text h3 {
+    font-family: "Inter", sans-serif;
+    font-size: 18px; /* Tối ưu kích thước chữ khi hiển thị song song */
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.1;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.visual-text h3 span {
+    font-size: 36px; /* Tối ưu kích thước chữ lớn */
+    background: linear-gradient(90deg, #DED2AF 0%, #DBBA82 50%, #CEB899 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: block;
+    margin-top: 5px;
+}
+
+
+.relative {
+    position: relative;
+}
+
+/* Section 7: Lý do nên hợp tác */
+.digisky-why-section {
+    position: relative;
+    padding: 120px 0;
+    background-image: url("image/batdongsan.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 800px;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.why-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 100%;
+    padding: 0 4%;
+}
+
+.why-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.why-main-title {
+    font-family: "Inter", sans-serif;
+    font-size: 60px;
+    font-weight: 800;
+    line-height: 1.2;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, #ffffff 0%, #DED2AF 50%, #DBBA82 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -1px;
+}
+
+.why-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* Card nội dung Lý do nên hợp tác (Không dùng khung ảnh viền) */
+.why-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 10px;
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    background: none;
+    box-shadow: none;
+}
+
+.why-card:hover {
+    transform: translateY(-8px);
+}
+
+.why-card.tall-card {
+    height: auto;
+    width: 100%;
+}
+
+.why-card.short-card {
+    height: auto;
+    width: 100%;
+}
+
+.why-right-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 60px; /* Khoảng cách thông thoáng giữa các mục bên phải */
+    width: 100%;
+}
+
+.why-card-content {
+    text-align: center;
+    color: #ffffff;
+    z-index: 2;
+}
+
+.why-card-title {
+    font-family: "Inter", sans-serif;
+    font-size: 34px; /* Giảm 20% kích thước chữ vàng (từ 42px xuống 34px) */
+    font-weight: 800;
+    color: #DBBA82; /* Tiêu đề màu vàng Gold */
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    line-height: 1.15;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+.why-card-desc {
+    font-family: "Roboto", sans-serif;
+    font-size: 20px; /* Tăng 10% kích thước chữ trắng mô tả (từ 18px lên 20px) */
+    color: #e0e0e0;
+    line-height: 1.6;
+    margin: 0;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.8);
+}
+
+/* Cột giữa đồ họa */
+.why-graphic-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.why-graphic-img {
+    max-width: 100%; /* Tăng 20% kích thước hình ảnh (max-width lên 100% trong cột 50% rộng) */
+    height: auto;
+    animation: breathe-glow 4s ease-in-out infinite; /* Hiệu ứng mạch đập phát sáng vàng kim cực đẹp */
+}
+
+@keyframes breathe-glow {
+    0% {
+        filter: drop-shadow(0 0 15px rgba(219, 186, 130, 0.25));
+    }
+    50% {
+        filter: drop-shadow(0 0 35px rgba(219, 186, 130, 0.65));
+    }
+    100% {
+        filter: drop-shadow(0 0 15px rgba(219, 186, 130, 0.25));
+    }
+}
+
+/* Section 6: Các dự án tiêu biểu */
+.digisky-projects-section {
+    position: relative;
+    padding: 120px 0;
+    background-image: url("image/banner.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 800px;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.projects-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.05); /* Giảm độ tối tối đa xuống 0.05 để nền sáng rực rỡ hoàn toàn */
+    z-index: 1;
+}
+
+.projects-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 100%;
+    padding: 0; /* Cho khối ảnh sát ra tận mép hai bên màn hình */
+}
+
+.projects-header {
+    text-align: center;
+    margin-bottom: 60px;
+    padding: 0 20px; /* Đảm bảo tiêu đề không bị dính mép trên các màn hình nhỏ */
+}
+
+.projects-main-title {
+    font-family: "Inter", sans-serif;
+    font-size: 60px;
+    font-weight: 800;
+    line-height: 1.2;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, #ffffff 0%, #DED2AF 50%, #DBBA82 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -1px;
+}
+
+/* Accordion Grid Layout */
+.project-stack-row {
+    display: flex;
+    width: 100%;
+    height: 630px; /* Tăng chiều cao thêm 15% (từ 550px lên 630px) */
+    gap: 5px; /* Giảm khe hở giữa các ảnh đi 3 lần (từ 15px xuống 5px) */
+    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.project-card {
+    position: relative;
+    flex: 1;
+    height: 100%;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1), filter 0.6s ease;
+    filter: brightness(1.0); /* Thiết lập độ sáng tối đa 100% tự nhiên theo yêu cầu */
+}
+
+/* Thẻ active mặc định hoặc khi hover */
+.project-card.active,
+.project-card:hover {
+    flex: 2.5;
+    filter: brightness(1.0);
+}
+
+/* Background image of the card */
+.project-card-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.project-card:hover .project-card-bg {
+    transform: scale(1.08);
+}
+
+/* Dark gradient overlay for readability */
+.project-card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0) 100%);
+    z-index: 2;
+}
+
+/* Card Content (Title) */
+.project-card-content {
+    position: absolute;
+    bottom: 40px;
+    left: 30px;
+    right: 30px;
+    z-index: 3;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.project-card-title {
+    font-family: "Inter", sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #DBBA82; /* Mặc định luôn là màu vàng Gold sang trọng */
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    transition: color 0.3s ease;
+}
+
+.project-card:hover .project-card-content {
+    transform: translateY(-5px);
+}
+
+@media (min-width: 993px) {
+    .realestate-col-left {
+        width: 50%; /* Chia đều 50% */
+        padding-right: 0;
+    }
+    .realestate-col-right {
+        width: 50%; /* Chia đều 50% */
+        padding-left: 0;
+    }
+    .first-box {
+        aspect-ratio: auto; /* Tự động theo kích thước ảnh để hiển thị đầy đủ */
+        margin-top: -120px; /* Đẩy khối ảnh 1 lên trên để chèn nhẹ dưới phần chữ, cân bằng chiều cao 2 bên */
+        position: relative;
+        z-index: 1;
+    }
+    .second-box {
+        aspect-ratio: 930 / 830; /* Thiết lập tỉ lệ chính xác 930 X 830 theo yêu cầu */
+    }
+    .second-box .visual-img,
+    .second-box .visual-img img {
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Hiệu ứng xoay chữ dọc sát góc trái -> ngang trên Desktop cho Section 6 */
+    .project-card .project-card-content {
+        bottom: 40px;
+        left: 45px; /* Điều chỉnh khoảng cách sát lề trái hoàn hảo */
+        right: auto;
+        transform: rotate(-90deg);
+        transform-origin: left bottom; /* Xoay quanh điểm góc dưới bên trái */
+        width: max-content;
+        transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), color 0.3s ease;
+        pointer-events: none;
+    }
+    
+    .project-card:hover .project-card-content,
+    .project-card.active .project-card-content {
+        transform: rotate(0deg);
+    }
+}
+
+@media (max-width: 992px) {
+    .realestate-main-title { font-size: 50px; }
+    .realestate-content-left { padding-left: 20px; text-align: center; }
+    .realestate-main-desc { margin: 0 auto 40px; }
+    
+    .realestate-row {
+        flex-direction: column;
+    }
+    
+    .realestate-col-left {
+        width: 100%;
+        padding: 0;
+        margin-bottom: 20px; /* Tạo khoảng cách dọc giữa 2 ảnh trên mobile */
+    }
+    
+    .realestate-col-right {
+        width: 100%;
+        padding: 0;
+    }
+    
+    .first-box, .second-box {
+        aspect-ratio: auto;
+    }
+    
+    .visual-img img {
+        height: auto;
+        object-fit: contain;
+    }
+    
+    .visual-text h3 {
+        font-size: 22px;
+    }
+    .visual-text h3 span {
+        font-size: 44px;
+    }
+
+    /* Section 6 Mobile Responsiveness */
+    .digisky-projects-section {
+        padding: 60px 0;
+        min-height: auto;
+    }
+    
+    .projects-main-title {
+        font-size: 38px;
+        margin-bottom: 40px;
+    }
+    
+    .project-stack-row {
+        flex-direction: column;
+        height: auto;
+        gap: 15px;
+    }
+    
+    .project-card {
+        height: 230px; /* Tăng chiều cao thêm 15% trên mobile (từ 200px lên 230px) */
+        width: 100%;
+        filter: brightness(1) grayscale(0%);
+    }
+    
+    .project-card.active,
+    .project-card:hover {
+        flex: none; /* Khóa flex trên mobile để tránh méo layout */
+    }
+    
+    .project-card-title {
+        font-size: 18px;
+        white-space: normal; /* Cho phép xuống hàng trên mobile */
+    }
+    
+    .project-card-content {
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+    }
+
+    /* Section 7 Mobile Responsiveness */
+    .digisky-why-section {
+        padding: 60px 0;
+        min-height: auto;
+    }
+    
+    .why-main-title {
+        font-size: 38px;
+        margin-bottom: 40px;
+    }
+    
+    .why-row {
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    .why-col-left, .why-col-center, .why-col-right {
+        width: 100% !important;
+        padding: 0 !important;
+    }
+    
+    .why-card.tall-card,
+    .why-card.short-card {
+        height: auto; /* Chiều cao tự động ôm theo cỡ chữ cực lớn */
+        padding: 10px 0;
+    }
+    
+    .why-card-title {
+        font-size: 22px !important; /* Giảm 20% chữ vàng trên di động (từ 28px xuống 22px) */
+        line-height: 1.25 !important;
+    }
+    
+    .why-card-desc {
+        font-size: 18px !important; /* Tăng 10% chữ trắng trên di động (từ 16px lên 18px) */
+    }
+    
+    .why-right-stack {
+        gap: 40px;
+    }
+    
+    .why-graphic-img {
+        max-width: 100%; /* Tăng kích thước hình di động tối đa */
+        margin: 30px 0;
+    }
+}
+
+/* --- Section 8: Đối tác (Partners) --- */
+.digisky-partners-section {
+    position: relative;
+    padding: 120px 0;
+    background-image: url("image/doitac.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Parallax effect */
+    min-height: 800px;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.partners-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(25, 37, 66, 0.95) 0%, rgba(10, 22, 40, 0.85) 50%, rgba(25, 37, 66, 0.95) 100%);
+    z-index: 1;
+}
+
+.partners-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 100%;
+    padding: 0 4%;
+}
+
+.partners-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.partners-main-title {
+    font-family: "Inter", sans-serif;
+    font-size: 60px;
+    font-weight: 800;
+    line-height: 1.2;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, #ffffff 0%, #DED2AF 50%, #DBBA82 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -1px;
+}
+
+.partners-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.partner-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(219, 186, 130, 0.12);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 120px;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.partner-img-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.partner-img-wrapper img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: grayscale(100%) brightness(1.8) opacity(0.5);
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Hover effects for premium experience */
+.partner-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    border-color: rgba(219, 186, 130, 0.6);
+    background: rgba(219, 186, 130, 0.08);
+    box-shadow: 0 20px 40px rgba(219, 186, 130, 0.2), 0 0 15px rgba(219, 186, 130, 0.1);
+}
+
+.partner-card:hover .partner-img-wrapper img {
+    filter: grayscale(0%) brightness(1) opacity(1);
+    transform: scale(1.05);
+}
+
+/* Responsiveness */
+@media (max-width: 1200px) {
+    .partners-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+    .partners-main-title {
+        font-size: 50px;
+    }
+}
+
+@media (max-width: 768px) {
+    .digisky-partners-section {
+        padding: 80px 0;
+        min-height: auto;
+    }
+    .partners-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    .partners-main-title {
+        font-size: 38px;
+        margin-bottom: 40px;
+    }
+    .partner-card {
+        height: 100px;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .partners-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+    .partner-card {
+        height: 90px;
+        padding: 10px;
+    }
+}
