@@ -1612,72 +1612,92 @@ ul {
     transform: translateY(-50%);
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px; /* Khoảng cách dọc hợp lý giữa các dòng */
     z-index: 999;
-    align-items: center;
-}
-
-.side-nav-pagination::before {
-    content: '';
-    position: absolute;
-    top: 15px;
-    bottom: 15px;
-    right: 50%;
-    transform: translateX(50%);
-    width: 1px;
-    background: rgba(255, 255, 255, 0.12);
-    z-index: -1;
+    align-items: flex-end;
 }
 
 .page-num {
-    font-family: "Outfit", "Inter", sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    color: rgba(255, 255, 255, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
     text-decoration: none;
     transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
     cursor: pointer;
-    background: #061525; /* Solid background color of the body to cover line */
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
 }
 
-.page-num:hover {
+.page-label {
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-right: 16px;
+    opacity: 0;
+    transform: translateX(15px);
+    transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+    pointer-events: none;
+    white-space: nowrap;
+    text-transform: uppercase;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+}
+
+.page-digit {
+    font-family: "Outfit", "Inter", sans-serif;
+    font-size: 26px; /* Kích thước số khi bình thường (phần chữ màu trắng, tăng thêm 30%) */
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.85);
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+    display: inline-block;
+}
+
+/* Hover effects */
+.page-num:hover .page-digit {
     color: #DBBA82;
-    border-color: rgba(219, 186, 130, 0.4);
-    transform: scale(1.15);
+    transform: scale(1.1);
 }
 
-.page-num.active {
-    color: #072542;
-    background: linear-gradient(90deg, #DED2AF 0%, #DBBA82 49%, #CEB899 100%);
-    border-color: transparent;
-    font-weight: 800;
-    box-shadow: 0 6px 20px rgba(219, 186, 130, 0.45);
-    transform: scale(1.25);
+.page-num:hover .page-label {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Active State: số to màu vàng và hiện nhãn chữ trắng */
+.page-num.active .page-digit {
+    font-size: 50px; /* Phóng to số lên nổi hẳn (như trong ảnh mẫu, tăng thêm 30%) */
+    color: #DBBA82;
+    font-weight: 700;
+}
+
+.page-num.active .page-label {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 /* Mobile Responsiveness */
 @media (max-width: 849px) {
     .side-nav-pagination {
-        right: 16px;
-        gap: 10px;
+        right: 20px;
+        gap: 8px;
     }
-    .page-num {
-        width: 26px;
-        height: 26px;
-        font-size: 10px;
+    .page-digit {
+        font-size: 21px; /* Tăng 30% trên tablet/mobile */
+    }
+    .page-num.active .page-digit {
+        font-size: 36px; /* Tăng 30% trên tablet/mobile */
+    }
+    .page-label {
+        font-size: 12px;
+        margin-right: 10px;
     }
 }
 
 @media (max-width: 560px) {
-    /* Hide on small screens to prevent overlaying other UI blocks */
+    /* Ẩn trên di động nhỏ để không che đè nội dung chính */
     .side-nav-pagination {
         display: none;
     }
