@@ -1120,6 +1120,7 @@ ul {
         height: 230px; /* Tăng chiều cao thêm 15% trên mobile (từ 200px lên 230px) */
         width: 100%;
         filter: brightness(1) grayscale(0%);
+        flex: none; /* Ngăn chặn xẹp chiều cao về 0px trên thiết bị di động */
     }
     
     .project-card.active,
