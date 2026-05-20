@@ -1274,7 +1274,6 @@ ul {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
-    filter: grayscale(100%) brightness(1.8) opacity(0.5);
     transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
@@ -1287,9 +1286,46 @@ ul {
 }
 
 .partner-card:hover .partner-img-wrapper img {
-    filter: grayscale(0%) brightness(1) opacity(1);
     transform: scale(1.05);
 }
+
+/* --- Hiệu ứng xuất hiện từng cái một từ trái qua phải (Staggered Reveal) --- */
+@keyframes revealPartner {
+    from {
+        opacity: 0;
+        transform: translateX(-40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.partners-grid.reveal .partner-card {
+    opacity: 0;
+}
+
+.partners-grid.reveal.active .partner-card {
+    opacity: 0;
+    animation: revealPartner 0.9s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.partners-grid.reveal.active .partner-card:nth-child(1) { animation-delay: 0.0s; }
+.partners-grid.reveal.active .partner-card:nth-child(2) { animation-delay: 0.15s; }
+.partners-grid.reveal.active .partner-card:nth-child(3) { animation-delay: 0.3s; }
+.partners-grid.reveal.active .partner-card:nth-child(4) { animation-delay: 0.45s; }
+.partners-grid.reveal.active .partner-card:nth-child(5) { animation-delay: 0.6s; }
+.partners-grid.reveal.active .partner-card:nth-child(6) { animation-delay: 0.75s; }
+.partners-grid.reveal.active .partner-card:nth-child(7) { animation-delay: 0.9s; }
+.partners-grid.reveal.active .partner-card:nth-child(8) { animation-delay: 1.05s; }
+.partners-grid.reveal.active .partner-card:nth-child(9) { animation-delay: 1.2s; }
+.partners-grid.reveal.active .partner-card:nth-child(10) { animation-delay: 1.35s; }
+.partners-grid.reveal.active .partner-card:nth-child(11) { animation-delay: 1.5s; }
+.partners-grid.reveal.active .partner-card:nth-child(12) { animation-delay: 1.65s; }
+.partners-grid.reveal.active .partner-card:nth-child(13) { animation-delay: 1.8s; }
+.partners-grid.reveal.active .partner-card:nth-child(14) { animation-delay: 1.95s; }
+.partners-grid.reveal.active .partner-card:nth-child(15) { animation-delay: 2.1s; }
+.partners-grid.reveal.active .partner-card:nth-child(16) { animation-delay: 2.25s; }
 
 /* Responsiveness */
 @media (max-width: 1200px) {
@@ -1330,4 +1366,239 @@ ul {
         height: 90px;
         padding: 10px;
     }
+}
+
+/* --- Section 9: Liên hệ --- */
+.contact-info-section-digisky {
+    position: relative;
+    min-height: 820px;
+    padding: 130px 0 90px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    background: #061525;
+}
+
+.contact-info-section-digisky .section-bg,
+.contact-info-section-digisky .section-bg img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.contact-info-section-digisky .section-bg img {
+    object-fit: cover;
+    /* Removed all filters to keep image original */
+}
+
+.contact-bg-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    /* Removed background gradients so nothing covers the image */
+}
+
+.contact-info-section-digisky .section-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+}
+
+.contact-wrapper {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 4%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    z-index: 2;
+}
+
+.contact-box-col {
+    flex: 0 0 42%;
+    position: relative;
+    border: 3px solid #CEB899;
+    border-radius: 34px;
+    padding: 52px 60px;
+    color: #fff;
+    background: transparent;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, .42), inset 0 0 50px rgba(219, 186, 130, .06);
+    backdrop-filter: blur(7px);
+}
+
+.contact-title h2 {
+    margin: 0 0 34px;
+    font-family: "Inter", "Roboto", sans-serif;
+    font-size: 40px;
+    line-height: 1.08;
+    font-weight: 800;
+    text-transform: uppercase;
+    background: linear-gradient(180deg, #DED2AF 1%, #DBBA82 42%, #DED2AF 70%, #CEB899 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.contact-title h2 span {
+    font-size: 48px;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1.15fr .85fr;
+    gap: 48px;
+}
+
+/* --- Decorative Graphics at Bottom Right --- */
+.contact-right-graphics {
+    position: absolute;
+    bottom: -10px;
+    right: -20px;
+    width: 65%;
+    max-width: 1400px;
+    z-index: 1; /* Below the contact box */
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.contact-logo-floating {
+    width: 40%; /* Reduced from 80% to 40% (50% smaller) */
+    align-self: center; /* Center the logo horizontally */
+    margin-bottom: 0; 
+    position: relative;
+    z-index: 3; /* Must be higher than buildings */
+}
+
+.contact-logo-floating img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.6));
+}
+
+.contact-building-image {
+    width: 100%;
+    margin-top: 0;
+    transform: translateY(-20%); /* Pushes the building image UP visually by 20% */
+    position: relative;
+    z-index: 2;
+    opacity: 0.9;
+    animation: floatImage 8s ease-in-out infinite;
+}
+
+.contact-building-image img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.5));
+}
+
+@keyframes floatImage {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0); }
+}
+
+@media (max-width: 1024px) {
+    .contact-wrapper {
+        flex-direction: column; /* Center the box */
+    }
+    .contact-box-col {
+        flex: 0 0 100%;
+        width: 100%;
+        text-align: left;
+        z-index: 5;
+    }
+    .contact-right-graphics {
+        width: 80%;
+        right: -30px;
+        bottom: -20px;
+        opacity: 0.7;
+    }
+    .contact-logo-floating {
+        margin-bottom: -80px;
+    }
+}
+
+@media (max-width: 768px) {
+    .contact-right-graphics {
+        width: 100%;
+        right: -40px;
+        opacity: 0.4;
+    }
+}
+
+.contact-location-title p,
+.contact-contact-title p {
+    margin: 0 0 12px;
+    font-size: 34px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.contact-address p,
+.contact-details p {
+    font-size: 23px;
+    line-height: 1.45;
+    margin: 0 0 18px;
+    color: rgba(255, 255, 255, .92);
+}
+
+.contact-address a,
+.contact-details a {
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.btn-contact-profile {
+    display: inline-block;
+    margin-top: 22px;
+    padding: 15px 30px;
+    border-radius: 999px;
+    font-size: 21px;
+    font-weight: 800;
+    color: #072542;
+    background: linear-gradient(90deg, #DED2AF 0%, #DBBA82 49%, #CEB899 100%);
+    box-shadow: 0 10px 25px rgba(219, 186, 130, .25);
+    transition: all .3s ease;
+}
+
+.btn-contact-profile:hover {
+    transform: translateY(-3px);
+    background: #072542;
+    color: #fff;
+}
+
+@media (max-width: 849px) {
+    #header { height: 78px; }
+    .main-nav ul { gap: 18px; }
+    .main-nav ul li a { font-size: 11px; }
+    .hotline img { height: 34px; }
+    .logo img { max-height: 62px; }
+    .hero-slider { height: 620px; }
+    .slider-controls { bottom: 62px; transform: translateX(-50%) scale(.82); }
+    .contact-info-section-digisky { min-height: auto; padding: 86px 0 60px; }
+    .contact-box-col { padding: 42px 26px; border-radius: 24px; }
+    .contact-title h2 { font-size: 26px; }
+    .contact-title h2 span { font-size: 30px; }
+    .contact-grid { grid-template-columns: 1fr; gap: 20px; }
+    .contact-location-title p, .contact-contact-title p { font-size: 26px; }
+    .contact-address p, .contact-details p { font-size: 18px; }
+}
+
+@media (max-width: 560px) {
+    .header-inner { padding: 0; }
+    .header-right { display: none; }
+    .main-nav { display: none; }
+    .logo { justify-content: center; }
+    .hero-slider { height: 520px; }
+    .dot, .slider-btn-alt { width: 34px; height: 34px; }
+    .dot:before { font-size: 15px; }
+    .slider-dots { gap: 8px; }
+    .slider-controls { gap: 8px; }
 }
