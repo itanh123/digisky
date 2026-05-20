@@ -131,4 +131,57 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // --- Logic điều khiển Side Navigation Active State & Smooth Scroll ---
+    const pageNums = document.querySelectorAll('.page-num');
+    const sections = [
+        document.getElementById('home'),
+        document.getElementById('intro'),
+        document.getElementById('products'),
+        document.getElementById('bat-dong-san'),
+        document.getElementById('du-an'),
+        document.getElementById('ly-do'),
+        document.getElementById('doi-tac'),
+        document.getElementById('lien-he')
+    ].filter(Boolean);
+
+    if (pageNums.length > 0 && sections.length > 0) {
+        const activeObserverOptions = {
+            root: null,
+            rootMargin: '-40% 0px -40% 0px', // Đánh dấu active khi phần lớn section nằm chính giữa màn hình
+            threshold: 0
+        };
+
+        const activeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    pageNums.forEach(num => {
+                        if (num.getAttribute('data-target') === id) {
+                            num.classList.add('active');
+                        } else {
+                            num.classList.remove('active');
+                        }
+                    });
+                }
+            });
+        }, activeObserverOptions);
+
+        sections.forEach(sec => activeObserver.observe(sec));
+
+        // Cuộn mượt khi click vào số trang
+        pageNums.forEach(num => {
+            num.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = num.getAttribute('data-target');
+                const targetSec = document.getElementById(targetId);
+                if (targetSec) {
+                    targetSec.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    }
 });

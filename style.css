@@ -1603,3 +1603,82 @@ ul {
     .slider-dots { gap: 8px; }
     .slider-controls { gap: 8px; }
 }
+
+/* --- Floating Side Navigation Pagination (01 - 08) --- */
+.side-nav-pagination {
+    position: fixed;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    z-index: 999;
+    align-items: center;
+}
+
+.side-nav-pagination::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    bottom: 15px;
+    right: 50%;
+    transform: translateX(50%);
+    width: 1px;
+    background: rgba(255, 255, 255, 0.12);
+    z-index: -1;
+}
+
+.page-num {
+    font-family: "Outfit", "Inter", sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    cursor: pointer;
+    background: #061525; /* Solid background color of the body to cover line */
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.page-num:hover {
+    color: #DBBA82;
+    border-color: rgba(219, 186, 130, 0.4);
+    transform: scale(1.15);
+}
+
+.page-num.active {
+    color: #072542;
+    background: linear-gradient(90deg, #DED2AF 0%, #DBBA82 49%, #CEB899 100%);
+    border-color: transparent;
+    font-weight: 800;
+    box-shadow: 0 6px 20px rgba(219, 186, 130, 0.45);
+    transform: scale(1.25);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 849px) {
+    .side-nav-pagination {
+        right: 16px;
+        gap: 10px;
+    }
+    .page-num {
+        width: 26px;
+        height: 26px;
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 560px) {
+    /* Hide on small screens to prevent overlaying other UI blocks */
+    .side-nav-pagination {
+        display: none;
+    }
+}
